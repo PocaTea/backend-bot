@@ -1,0 +1,28 @@
+services:
+  - name: mc-bot-backend
+    type: web
+    git:
+      branch: main
+      build_command: ""
+      run_command: ""
+    docker:
+      dockerfile: Dockerfile
+    instance_types:
+      - type: free
+    ports:
+      - port: 3000
+        protocol: http
+    env:
+      - key: PORT
+        value: "3000"
+    routes:
+      - path: /
+        port: 3000
+    regions:
+      - was  # Washington (closest free region; Singapore = sgp tapi paid)
+    checks:
+      - type: http
+        path: /
+        port: 3000
+        interval: 30
+        timeout: 5
